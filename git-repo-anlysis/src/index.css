@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: oklch(0.7 0.15 250);
+  --color-brand-secondary: oklch(0.65 0.2 280);
+  --color-brand-accent: oklch(0.8 0.15 180);
+  --color-surface-950: oklch(0.12 0.02 240);
+  --color-surface-900: oklch(0.18 0.03 240);
+  --color-surface-800: oklch(0.25 0.03 240);
+}
+
+@layer base {
+  :root {
+    --brand-primary: 129, 140, 248;
+  }
+
+  body {
+    @apply bg-surface-950 text-slate-100 antialiased selection:bg-brand-primary/30 min-h-screen relative overflow-x-hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Animated background particles effect */
+  body::before {
+    content: "";
+    @apply absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none -z-10 bg-[radial-gradient(circle_at_50%_50%,oklch(0.3_0.1_250/0.15),transparent_40%)];
+    animation: rotate-slow 30s linear infinite;
+  }
+
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/5 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl;
+  }
+  
+  .glass-card {
+    @apply relative overflow-hidden transition-all duration-500 hover:border-white/20 hover:bg-white/[0.08];
+  }
+
+  .btn-primary {
+    @apply relative px-6 py-3 bg-brand-primary text-white font-medium rounded-xl 
+           transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]
+           hover:shadow-[0_0_20px_rgba(129,140,248,0.4)] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .input-field {
+    @apply w-full px-5 py-4 bg-surface-900 border border-white/10 rounded-xl text-white
+           placeholder:text-slate-500 outline-none transition-all duration-300
+           focus:border-brand-primary/50 focus:ring-4 focus:ring-brand-primary/10;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar,
+  pre::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track,
+  pre::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb,
+  pre::-webkit-scrollbar-thumb {
+    @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+  }
+}
+
+/* Code block adjustments */
+pre {
+  @apply overflow-auto;
+}
